@@ -3,19 +3,23 @@
 #include <errno.h>
 
 void
-comprobarpaths(int argc, char *argv[])
+copybytes(int argc, char *argv[])
 {
 	char *primerpath = argv[1];
 	char *segundopath = argv[2];
-	if (argc == 3) {
-		printf("revisar atoi para cast char * a int)");
-	}
 	
-	printf("function to check paths");
+	switch (fork()) {
+		case -1:
+		    err("Imposible hacer fork");
+		    break;
+		case 0:
+		    printf("read and write?");
+			if (argc == 3) {
+				printf("revisar atoi para cast char * a int)");
+			}
+		    break;
+	}
 
-	// if primer path exists
-	//     usar
-	//  default crear o al reves
 }
 
 int
@@ -26,7 +30,7 @@ main(int argc, char *argv[])
 		err("Numero de argumentos incorrecto");
 	}
 	
-	comprobarpaths(argc, argv);
+	copybytes(argc, argv);
 	
 	exit(EXIT_SUCCESS);
 }
