@@ -1,12 +1,26 @@
 #include <stdio.h>
 #include <stdlib>
-#include <errno.h>
+#include <err.h>
 
+int
+bytestoread(char *argumento)
+{
+	char *p;
+	long l;
+
+	l = strtol(str, &p, 10);
+	if (*p != '\0') {
+		return -1;
+	}
+
+	return (int)l;
+}
 void
 copybytes(int argc, char *argv[])
 {
 	char *primerpath = argv[1];
 	char *segundopath = argv[2];
+	int bytestoread;
 	
 	switch (fork()) {
 		case -1:
@@ -15,7 +29,13 @@ copybytes(int argc, char *argv[])
 		case 0:
 		    printf("read and write?");
 			if (argc == 3) {
-				printf("revisar atoi para cast char * a int)");
+				bytestoread = bytestoread(argv[3]);
+			}
+			if (primerpath == '-') {
+				printf("leer de la stdin");
+			}
+			if (segundopath == '-') {
+				printf("sacar dr la stdout");
 			}
 		    break;
 	}
