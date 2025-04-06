@@ -25,6 +25,7 @@ copybytes(int argc, char *argv[])
 	int open_write;
 	ssize_t read;
 	ssize_t write;
+	// como añado el buf dr 8kb?
 	
 	switch (fork()) {
 		case -1:
@@ -35,13 +36,13 @@ copybytes(int argc, char *argv[])
 				// hay que añadir O_CREAT
 				// para crear el archivo si
 				// no existe
-				open_read = open(argv[1], O_RDONLY);
+				open_read = open(argv[1], O_RDONLY | O_CREAT);
 				bytestoread = bytestoread(argv[3]);
-				open_write = open(argv[2], O_WONLY);
+				open_write = open(argv[2], O_WONLY | O_CREAT);
 				read(open_read, buffer, bytestoread);
 				// me falta donde guardar lo de read
 				// para escribirlo en write que es
-				// otro fichero
+				// otro fichero del buffer de 8kb
 				write(open_write, buffer, bytestoread);
 			}
 			if (primerpath == '-') {
