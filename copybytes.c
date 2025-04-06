@@ -21,15 +21,28 @@ copybytes(int argc, char *argv[])
 	char *primerpath = argv[1];
 	char *segundopath = argv[2];
 	int bytestoread;
+	int open_read;
+	int open_write;
+	ssize_t read;
+	ssize_t write;
 	
 	switch (fork()) {
 		case -1:
 		    err("Imposible hacer fork");
 		    break;
 		case 0:
-		    printf("read and write?");
 			if (argc == 3) {
+				// hay que añadir O_CREAT
+				// para crear el archivo si
+				// no existe
+				open_read = open(argv[1], O_RDONLY);
 				bytestoread = bytestoread(argv[3]);
+				open_write = open(argv[2], O_WONLY);
+				read(open_read, buffer, bytestoread);
+				// me falta donde guardar lo de read
+				// para escribirlo en write que es
+				// otro fichero
+				write(open_write, buffer, bytestoread);
 			}
 			if (primerpath == '-') {
 				printf("leer de la stdin");
